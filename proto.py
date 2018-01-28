@@ -10,12 +10,10 @@ from tkinter import *
 def main():
 
     # setting up the plot
-    plt.ion()
-    fig = plt.figure()
-    ax = Axes3D(fig)
+    #plt.ion()
+    #fig = plt.figure()
+    #ax = Axes3D(fig)
 
-    # refresh rate for graph
-    refresh_rate = 1/10
 
     # stewart platform object from platform class
     stewart = protoPlatform.StewartPlatform()
@@ -40,7 +38,7 @@ def main():
         # get base and platform vertices for plotting
         r_ob_bi_b, r_ob_pi_b , r_ob_ai_b = stewart.output_variables()
 
-        plot_stuff(ax, r_ob_bi_b, r_ob_pi_b, r_ob_ai_b)
+        # plot_stuff(ax, r_ob_bi_b, r_ob_pi_b, r_ob_ai_b)
 
         gui.update()
 
