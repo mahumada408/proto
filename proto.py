@@ -44,10 +44,10 @@ def main():
 
         event_checker(stewart, gui_list)
 
-        plt.draw()
+        #plt.draw()
 
-    plt.ioff()
-    plt.show()
+    #plt.ioff()
+    #plt.show()
 
 
 
