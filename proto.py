@@ -46,8 +46,7 @@ def main():
 
         event_checker(stewart, gui_list)
 
-        plt.pause(refresh_rate)
-        time.sleep(refresh_rate)
+        plt.draw()
 
     plt.ioff()
     plt.show()
