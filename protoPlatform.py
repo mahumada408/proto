@@ -29,6 +29,7 @@ class StewartPlatform(object):
         # initialize container of vectors
         self.r_ob_bi_b = []
         self.r_op_pi_p = []
+        self.r_op_pi_b = []
 
         # initialize last servo vectors
         self.last_servo_angles = self.servo_zeros
@@ -77,7 +78,11 @@ class StewartPlatform(object):
         self.r_ob_op = np.asarray([[desired_platform_pose[0]], [desired_platform_pose[1]], [desired_platform_pose[2]]])
 
         # pi now in B
-        self.r_op_pi_b = np.matmul(rotation_matrix_p_b, self.r_op_pi_p)
+        for vector in self.r_op_pi_p:
+            self.r_op_pi_b.append(np.dot(rotation_matrix_p_b, vector))
+        # self.r_op_pi_b = np.dot(rotation_matrix_p_b, self.r_op_pi_p)
+        
+        # self.r_op_pi_b = np.einsum('ij,jk->ik',rotation_matrix_p_b, self.r_op_pi_p)
 
         # solving for bi -> pi in b frame
         self.r_bi_pi_b = []
@@ -129,10 +134,10 @@ class StewartPlatform(object):
                 else:
                     current_servo_angle = self.servo_zeros[i] - alpha
 
-            print(" oh hey: " + str(oh_hey))
+            #print(" oh hey: " + str(oh_hey))
 
             self.servo_angle.append(current_servo_angle)
-            print("servo: " + str(i) + " current angle: " + str(current_servo_angle*180/pi))
+            #print("servo: " + str(i) + " current angle: " + str(current_servo_angle*180/pi))
 
             # self.last_servo_angles[i] = current_servo_angle
 

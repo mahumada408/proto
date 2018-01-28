@@ -15,10 +15,10 @@ def main():
     ax = Axes3D(fig)
 
     # refresh rate for graph
-    refresh_rate = 1/1000
+    refresh_rate = 1/10
 
     # stewart platform object from platform class
-    stewart = platformV.StewartPlatform()
+    stewart = protoPlatform.StewartPlatform()
 
     # gui stuff
     gui = Tk()
