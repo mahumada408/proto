@@ -161,7 +161,7 @@ class StewartPlatform(object):
     def output_variables(self):
 
         # print(self.r_ob_ai_b)
-        return self.r_ob_bi_b, self.r_ob_pi_b, self.r_ob_ai_b
+        return self.r_ob_bi_b, self.r_ob_pi_b, self.r_ob_ai_b, self.servo_angle
 
 
 if __name__ == "__main__":

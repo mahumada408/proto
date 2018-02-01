@@ -6,6 +6,10 @@ import time
 import protoPlatform # my own class!!
 from tkinter import *
 
+# Import the PCA9685 module.
+import Adafruit_PCA9685
+import servoController
+
 
 def main():
 
@@ -26,6 +30,13 @@ def main():
     global end_flag
     end_flag = False
 
+    # Initialise the PCA9685 using the default address (0x40).
+    driver_board = Adafruit_PCA9685.PCA9685()
+    # Set frequency to 60hz, good for servos.
+    driver_board.set_pwm_freq(60)
+    servos = [servoController.Servo(driver_board,0), servoController.Servo(driver_board,1), servoController.Servo(driver_board,2),
+              servoController.Servo(driver_board, 3), servoController.Servo(driver_board,4), servoController.Servo(driver_board,5)]
+
     while not end_flag:
 
         # desired platform pose
@@ -36,7 +47,9 @@ def main():
         stewart.update_platform(desired_platform_pose)
 
         # get base and platform vertices for plotting
-        r_ob_bi_b, r_ob_pi_b , r_ob_ai_b = stewart.output_variables()
+        r_ob_bi_b, r_ob_pi_b , r_ob_ai_b, servo_angles = stewart.output_variables()
+
+        set_servo_angles(servos, servo_angles)
 
         # plot_stuff(ax, r_ob_bi_b, r_ob_pi_b, r_ob_ai_b)
 
@@ -150,6 +163,13 @@ def gui_stuff(gui, stewart):
 def home_callback():
     global home_flag
     home_flag = True
+
+def set_servo_angles(servos, servo_angles):
+    for i in range(0,6):
+        servo = servos[i]
+        # transform angle to pulse
+        servo.set_servo_pulse(servo_pulse)
+
 
 
 if __name__ == '__main__':
