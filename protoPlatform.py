@@ -118,10 +118,10 @@ class StewartPlatform(object):
 
             if oh_hey < -1:
                 if i % 2 == 1:
-                    current_servo_angle = 3*pi/2
+                    current_servo_angle = -1*pi/2
 
                 else:
-                    current_servo_angle = -1*pi/2
+                    current_servo_angle = 3*pi/2
 
             elif oh_hey > 1:
                 current_servo_angle = pi/2

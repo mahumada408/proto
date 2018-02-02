@@ -168,6 +168,10 @@ def set_servo_angles(servos, servo_angles):
     for i in range(0,6):
         servo = servos[i]
         # transform angle to pulse
+        servo_pulse = int(round((25000/157)*servo_angles[i] + 350))
+        if i == 1:
+            print(servo_angles[i]*(180/pi))
+            print(servo_pulse)
         servo.set_servo_pulse(servo_pulse)
 
 
