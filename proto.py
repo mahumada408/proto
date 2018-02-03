@@ -37,10 +37,13 @@ def main():
     servos = [servoController.Servo(driver_board,0), servoController.Servo(driver_board,1), servoController.Servo(driver_board,2),
               servoController.Servo(driver_board, 3), servoController.Servo(driver_board,4), servoController.Servo(driver_board,5)]
 
+    i = 0 
     while not end_flag:
 
         # desired platform pose
-        desired_platform_pose = [0 + x_slider.get()/10000, 0 + y_slider.get()/10000, 0.122 + z_slider.get()/10000,
+        #desired_platform_pose = [0 + sin(i)/100, 0 + cos(i)/100, 0.122 + 0,
+        #                         roll_slider.get()/1000, pitch_slider.get()/1000, yaw_slider.get()/1000]
+        desired_platform_pose = [0 + x_slider.get()/1000, 0 + y_slider.get()/1000, 0.122 + z_slider.get()/10000,
                                  roll_slider.get()/1000, pitch_slider.get()/1000, yaw_slider.get()/1000]
 
         # update platform pose by solving the IK
@@ -58,6 +61,7 @@ def main():
         event_checker(stewart, gui_list)
 
         #plt.draw()
+        i += 0.1
 
     #plt.ioff()
     #plt.show()
@@ -172,10 +176,7 @@ def set_servo_angles(servos, servo_angles):
             servo_pulse = int(round((25000/157)*servo_angles[i] + 350))
         else:
             servo_pulse = int(round((25000/157)*(servo_angles[i]-pi) + 350))
-        
-        if i == 1:
-            print(servo_angles[i]*(180/pi))
-            print(servo_pulse)
+       
         servo.set_servo_pulse(servo_pulse)
 
 
