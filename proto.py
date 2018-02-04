@@ -41,10 +41,12 @@ def main():
     while not end_flag:
 
         # desired platform pose
-        #desired_platform_pose = [0 + sin(i)/100, 0 + cos(i)/100, 0.122 + 0,
+        desired_platform_pose = [0, 0, 0.122,
+                                 0, 0, sin(i)/10]
+        #desired_platform_pose = [0 + sin(i)/100, 0 + cos(i)/100, 0.122 + sin(i)/100,
         #                         roll_slider.get()/1000, pitch_slider.get()/1000, yaw_slider.get()/1000]
-        desired_platform_pose = [0 + x_slider.get()/1000, 0 + y_slider.get()/1000, 0.122 + z_slider.get()/10000,
-                                 roll_slider.get()/1000, pitch_slider.get()/1000, yaw_slider.get()/1000]
+        #desired_platform_pose = [0 + x_slider.get()/1000, 0 + y_slider.get()/1000, 0.122 + z_slider.get()/10000,
+        #                         roll_slider.get()/1000, pitch_slider.get()/1000, yaw_slider.get()/1000]
 
         # update platform pose by solving the IK
         stewart.update_platform(desired_platform_pose)
@@ -61,7 +63,7 @@ def main():
         event_checker(stewart, gui_list)
 
         #plt.draw()
-        i += 0.1
+        i += 0.05
 
     #plt.ioff()
     #plt.show()

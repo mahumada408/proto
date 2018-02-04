@@ -78,18 +78,17 @@ class StewartPlatform(object):
         self.r_ob_op = np.asarray([[desired_platform_pose[0]], [desired_platform_pose[1]], [desired_platform_pose[2]]])
 
         # pi now in B
+        self.r_op_pi_b = []
         for vector in self.r_op_pi_p:
-            self.r_op_pi_b.append(np.dot(rotation_matrix_p_b, vector))
-        # self.r_op_pi_b = np.dot(rotation_matrix_p_b, self.r_op_pi_p)
-        
-        # self.r_op_pi_b = np.einsum('ij,jk->ik',rotation_matrix_p_b, self.r_op_pi_p)
-
+        #    self.r_op_pi_b.append(rotation_matrix_p_b * vector))
+            hey_hey = np.dot(rotation_matrix_p_b, vector)
+            self.r_op_pi_b.append(hey_hey)
+            
         # solving for bi -> pi in b frame
         self.r_bi_pi_b = []
 
         for i in range(0,6):
             r_bi_pi_b_vector = self.r_ob_op + self.r_op_pi_b[i] - self.r_ob_bi_b[i]
-
             self.r_bi_pi_b.append(r_bi_pi_b_vector)
 
         # adding origin for plotting purposes
@@ -99,7 +98,7 @@ class StewartPlatform(object):
         self.r_ob_pi_b = []
         for i in range(0,6):
             self.r_ob_pi_b.append(self.r_ob_bi_b[i] + self.r_bi_pi_b[i])
-
+            
         self.get_servo_angle()
 
     def get_servo_angle(self):
