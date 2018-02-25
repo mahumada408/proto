@@ -8,17 +8,22 @@ class StewartPlatform(object):
     def __init__(self):
 
         # constants based on geometry
-        base_radius = 0.08
-        platform_radius = 0.065
-        mounting_theta_s = 6.84 * pi / 180
-        mounting_theta_l = 106.31 * pi / 180
+        base_radius = 0.06
+        platform_radius = 0.05
+        # base
+        base_mounting_theta_s = 15 * pi / 180
+        base_mounting_theta_l = 90 * pi / 180
+        # platform
+        platform_mounting_theta_s = 6.84 * pi / 180
+        platform_mounting_theta_l = 106.31 * pi / 180
 
         self.servo_horn_length = 0.016
         self.pushrod_length = 0.138
 
-        self.beta = [mounting_theta_s + pi/2, mounting_theta_s*2 + pi/2, mounting_theta_l + mounting_theta_s*2 + pi/2,
-                     mounting_theta_l + mounting_theta_s*3 + pi/2, mounting_theta_l*2 + mounting_theta_s*3 + pi/2,
-                     mounting_theta_l*2 + mounting_theta_s*4 + pi/2]
+        # beta on the base
+        self.beta = [base_mounting_theta_s + pi/2, base_mounting_theta_s*2 + pi/2, base_mounting_theta_l + base_mounting_theta_s*2 + pi/2,
+                     base_mounting_theta_l + base_mounting_theta_s*3 + pi/2, base_mounting_theta_l*2 + base_mounting_theta_s*3 + pi/2,
+                     base_mounting_theta_l*2 + base_mounting_theta_s*4 + pi/2]
 
         self.servo_zeros = [pi, 0, pi, 0, pi, 0]
         self.servo_angle = []
@@ -36,23 +41,26 @@ class StewartPlatform(object):
 
 
         # fill up with vectors
-        angle_step = 0
+        base_angle_step = 0
+        platform_angle_step = 0
         for i in range(0, 6):
             # set up vectors to mounting points on the base and platform
 
             if i == 2 or i == 4:
-                angle_step += mounting_theta_l
+                base_angle_step += base_mounting_theta_l
+                platform_angle_step += platform_mounting_theta_l
             else:
-                angle_step += mounting_theta_s
+                base_angle_step += base_mounting_theta_s
+                platform_angle_step += platform_mounting_theta_s
 
             # base in b frame
-            self.r_ob_bi_b.append(np.asarray([[base_radius * cos(angle_step)],
-                                              [base_radius * sin(angle_step)],
+            self.r_ob_bi_b.append(np.asarray([[base_radius * cos(base_angle_step)],
+                                              [base_radius * sin(base_angle_step)],
                                               [0]]))
 
             # platform in p frame
-            self.r_op_pi_p.append(np.asarray([[platform_radius * cos(angle_step)],
-                                              [platform_radius * sin(angle_step)],
+            self.r_op_pi_p.append(np.asarray([[platform_radius * cos(platform_angle_step)],
+                                              [platform_radius * sin(platform_angle_step)],
                                               [0]]))
 
         print("stewart init done")
@@ -151,7 +159,7 @@ class StewartPlatform(object):
         # home conditions
         home_x = 0
         home_y = 0
-        home_height = 0.11456
+        home_height = 0.13456
 
         home_pose = [home_x, home_y, home_height, 0, 0, 0]
 
