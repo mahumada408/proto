@@ -10,11 +10,11 @@ class StewartPlatform(object):
         # constants based on geometry
         base_radius = 0.08
         platform_radius = 0.065
-        mounting_theta_s = 20 * pi / 180
-        mounting_theta_l = 100 * pi / 180
+        mounting_theta_s = 6.84 * pi / 180
+        mounting_theta_l = 106.31 * pi / 180
 
-        self.servo_horn_length = 0.02
-        self.pushrod_length = 0.125
+        self.servo_horn_length = 0.016
+        self.pushrod_length = 0.138
 
         self.beta = [mounting_theta_s + pi/2, mounting_theta_s*2 + pi/2, mounting_theta_l + mounting_theta_s*2 + pi/2,
                      mounting_theta_l + mounting_theta_s*3 + pi/2, mounting_theta_l*2 + mounting_theta_s*3 + pi/2,
@@ -151,7 +151,7 @@ class StewartPlatform(object):
         # home conditions
         home_x = 0
         home_y = 0
-        home_height = 0.122
+        home_height = 0.11456
 
         home_pose = [home_x, home_y, home_height, 0, 0, 0]
 
